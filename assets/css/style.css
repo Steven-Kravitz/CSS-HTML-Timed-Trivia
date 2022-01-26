@@ -1,0 +1,70 @@
+
+body {
+	padding: 0;
+	margin: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100vw;
+	height: 100vh;
+}
+
+.hidden {
+	display: none;
+}
+
+#quiz {
+	width: 500px;
+	background-color: white;
+	border-radius: 8px;
+	padding: 15px;
+}
+
+#startBtn, #nextBtn {
+    background-color: red;
+	font-size: 1.5rem;
+	font-weight: bold;
+    padding: 15px 30px;
+}
+
+.progressBtns {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.btnLayout {
+	display: grid;
+	grid-template-columns:  repeat(2,auto);
+	grid-gap: 10px;
+	margin: 20px 0;
+}
+
+.btn {
+	border: 1px solid black;
+	background-color: lightgreen;
+	border-radius: 5px;
+	padding: 5px 10px;
+	color: blanchedalmond;
+	outline: none;
+
+}
+
+.btn:hover {
+    border-color: blue;
+    border: 2px solid blue;
+}
+
+/* Make bright green when correct answer is selected */
+.btn.correct {
+
+}
+/* Make bright red when incorrect answer is selected */
+.btn.wrong {
+
+}
+
+
+
+
+

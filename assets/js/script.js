@@ -63,8 +63,17 @@ var questions = [
 
 ]
 
-startButton.addEventListener('click', startGame)
+// Variable for questionIndex, can ++ later to proceed to next question
+var questionIndex = [0];
 
-function startGame() {
+// Makes clicking on a button run a function
+startButton.addEventListener('click', startQuiz)
+nextButton.addEventListener('click', nextQuestion)
+
+// Hide the start button and display a question
+function startQuiz() {
+    startButton.classList.add('hidden');
+    questionBox.classList.remove('hidden');
+
 
 }
