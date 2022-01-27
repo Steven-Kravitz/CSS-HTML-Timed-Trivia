@@ -8,9 +8,12 @@ var btn = document.getElementsByClassName('btn')
 var timer = document.getElementById('timer')
 var timeRemaining = document.getElementById('timeRemaining')
 var showAnswerEl = document.getElementById('showAnswer')
+var resultsBoxEl = document.getElementById('resultsBox')
+var finalScoreEl = document.getElementById('finalScore')
 
 var numCorrect = 0
 var numIncorrect = 0
+// var totalScore = timePool + numCorrect
 
 // Adding button ids for text placement
 var btnAEl = document.getElementById('btnA')
@@ -91,7 +94,6 @@ var questions = [
 var questionIndex = 0;
 // Makes clicking on a button run a function
 startButton.addEventListener('click', startQuiz)
-nextButton.addEventListener('click', nextQuestion)
 
 // Adding Timer functionality
 var timePool = 120;
@@ -103,11 +105,12 @@ function startQuiz() {
     questionIndex = 0;
 // Reduce timepool by 1 every second, stops at 0 and executes final function
     var startTimer = setInterval(function() {
+        numIncorrect++
         timePool--;
         timeRemaining.textContent = timePool;
         if(timePool <= 0) {
             clearInterval(startTimer);
-            if (questionIndex < questions.length - 1) {
+            if (questionIndex <= questions.length - 1) {
                 gameOver();
             }
         }
@@ -163,3 +166,10 @@ btnAEl.addEventListener('click', checkA)
 btnBEl.addEventListener('click', checkB)
 btnCEl.addEventListener('click', checkC)
 btnDEl.addEventListener('click', checkD)
+
+function gameOver() {
+    questionBox.classList.add('hidden')
+    resultsBoxEl.classList.remove('hidden')
+    timeRemaining.classList.add('hidden')
+    finalScoreEl.textContent = timePool + numCorrect - numIncorrect
+}
