@@ -124,34 +124,42 @@ function showQuestion () {
     btnDEl.textContent = questions[questionIndex].answers[3];
 
 }
-// Proceeds to next question in array and hides answer
+// Introduces next question
 function nextQuestion() {
-    questionIndex++
     showQuestion()
     showAnswerEl.classList.add('hidden')
 }
 
-// function showAnswer(i) {
-// showAnswerEl.classList.remove('hidden')
+function showAnswer(answer) {
+showAnswerEl.classList.remove('hidden')
 
-// if(answer[i] === true){
-//     numCorrect++
-//     showAnswerEl.textContent = "Correct!"
-// } else {
-//     timePool -= 10
-//     timeRemaining.textContent = timePool
-//     showAnswerEl.textContent = "Incorrect!"
+if(questions[questionIndex].answer === questions[questionIndex].answers[answer]){
+    numCorrect++
+    showAnswerEl.textContent = "Correct!"
+} else {
+    timePool -= 10
+    timeRemaining.textContent = timePool
+    showAnswerEl.textContent = "Incorrect! The correct Answer is " + questions[questionIndex].answer
+}
+// Cycles to next question
+    questionIndex++;
+// Allows the answer to be shown beneath the quiz for 3 seconds before proceeding
+if (questionIndex < questions.length) {
+    setTimeout(function() {nextQuestion()}, 3000)
+} else {
+//end game
+    gameOver()
+}
+}
 
-// if (questionIndex < questions.length) {
-//     nextQuestion()
-// } else {
-// //final function
-//     gameOver()
-// }
-// }
-// }
 
-btnAEl.addEventListener('click', showAnswer)
-btnBEl.addEventListener('click', showAnswer)
-btnCEl.addEventListener('click', showAnswer)
-btnDEl.addEventListener('click', showAnswer)
+// Provide parameters for show answer when buttons with these functions are pressed.
+function checkA() {showAnswer(0)}
+function checkB() {showAnswer(1)}
+function checkC() {showAnswer(2)}
+function checkD() {showAnswer(3)}
+// Quiz Button Event Listeners
+btnAEl.addEventListener('click', checkA)
+btnBEl.addEventListener('click', checkB)
+btnCEl.addEventListener('click', checkC)
+btnDEl.addEventListener('click', checkD)
