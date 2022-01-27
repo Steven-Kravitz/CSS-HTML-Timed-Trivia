@@ -4,6 +4,7 @@ var nextButton = document.getElementById('nextBtn')
 var questionBox = document.getElementById('questionBox')
 var questionEl = document.getElementById('question')
 var answerButtons = document.getElementById('answerBtns')
+var btn = document.getElementsByClassName('btn')
 // Adding button ids for text placement
 var btnAEl = document.getElementById('btnA')
 var btnBEl = document.getElementById('btnB')
@@ -80,13 +81,30 @@ nextButton.addEventListener('click', nextQuestion)
 function startQuiz() {
     startButton.classList.add('hidden');
     questionBox.classList.remove('hidden');
+    nextButton.classList.remove('hidden');
     questionIndex = 0;
 
-    nextQuestion()
+    showQuestion()
 }
 
-// Loads up the next question in the array into text
-function nextQuestion () {
+// Displays the question
+function showQuestion () {
     questionEl.textContent = questions[questionIndex].question;
+    btnAEl.textContent = questions[questionIndex].answers[0].text;
+    btnBEl.textContent = questions[questionIndex].answers[1].text;
+    btnCEl.textContent = questions[questionIndex].answers[2].text;
+    btnDEl.textContent = questions[questionIndex].answers[3].text;
 
 }
+// Function for nextButton's event listener
+function nextQuestion() {
+    questionIndex++
+    showQuestion()
+}
+
+
+
+// btnAEl.addEventListener('click', showAnswer)
+// btnBEl.addEventListener('click', showAnswer)
+// btnCEl.addEventListener('click', showAnswer)
+// btnDEl.addEventListener('click', showAnswer)
