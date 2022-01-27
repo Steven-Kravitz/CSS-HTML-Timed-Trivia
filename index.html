@@ -9,9 +9,19 @@
     <title>Code Trivia</title>
 </head>
 <body>
-    
+   <div id="header">
+   <div class="highScoreBox">
+       <a href="#" id="highScorePage">High Scores!</a>
+   </div>
+
+   <div id="timer">
+    <p>Time: <span id="timeRemaining">120</span></p>
+   </div>
+   </div>    
 <div id="quiz"> <!--Container for quiz-->
-   
+
+
+
    <!--Container for questions displayed. Hidden behind start button  -->
     <div id="questionBox" class="hidden">
         <div id="question">Question</div>
@@ -20,6 +30,7 @@
         <button id="btnB" class="btn">B</button>
         <button id="btnC" class="btn">C</button>
         <button id="btnD" class="btn">D</button>
+        <p id="showAnswer" class="hidden"></p>
     </div>
     </div>
     <!-- Container for buttons to start quiz and go to next question -->

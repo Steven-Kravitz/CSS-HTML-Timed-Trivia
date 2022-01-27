@@ -9,6 +9,10 @@ body {
 	height: 100vh;
 }
 
+#header {
+    display: inline;
+}
+
 .hidden {
 	display: none;
 }
