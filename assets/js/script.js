@@ -2,8 +2,14 @@
 var startButton = document.getElementById('startBtn')
 var nextButton = document.getElementById('nextBtn')
 var questionBox = document.getElementById('questionBox')
-var questionElement = document.getElementById('question')
+var questionEl = document.getElementById('question')
 var answerButtons = document.getElementById('answerBtns')
+// Adding button ids for text placement
+var btnAEl = document.getElementById('btnA')
+var btnBEl = document.getElementById('btnB')
+var btnCEl = document.getElementById('btnC')
+var btnDEl = document.getElementById('btnD')
+
 // Creating an Array containing the quiz's questions
 var questions = [
     {
@@ -64,7 +70,7 @@ var questions = [
 ]
 
 // Variable for questionIndex, can ++ later to proceed to next question
-var questionIndex = [0];
+var questionIndex = 0;
 
 // Makes clicking on a button run a function
 startButton.addEventListener('click', startQuiz)
@@ -74,6 +80,13 @@ nextButton.addEventListener('click', nextQuestion)
 function startQuiz() {
     startButton.classList.add('hidden');
     questionBox.classList.remove('hidden');
+    questionIndex = 0;
 
+    nextQuestion()
+}
+
+// Loads up the next question in the array into text
+function nextQuestion () {
+    questionEl.textContent = questions[questionIndex].question;
 
 }
