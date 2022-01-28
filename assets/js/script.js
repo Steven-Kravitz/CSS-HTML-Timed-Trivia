@@ -10,6 +10,11 @@ var timeRemaining = document.getElementById('timeRemaining')
 var showAnswerEl = document.getElementById('showAnswer')
 var resultsBoxEl = document.getElementById('resultsBox')
 var finalScoreEl = document.getElementById('finalScore')
+var initialInput = document.getElementById('initInput')
+var scoreScreenEl = document.getElementById('scoreScreen')
+var highScoreList = document.getElementById('highScoresList')
+var scoreSumbitBtn = document.getElementById('scoreSubmitBtn')
+var clearScoreBtn = document.getElementById('clearScoresBtn')
 
 var numCorrect = 0
 var numIncorrect = 0
@@ -134,25 +139,25 @@ function nextQuestion() {
 }
 
 function showAnswer(answer) {
-showAnswerEl.classList.remove('hidden')
+    showAnswerEl.classList.remove('hidden')
 
-if(questions[questionIndex].answer === questions[questionIndex].answers[answer]){
-    numCorrect++
-    showAnswerEl.textContent = "Correct!"
-} else {
-    timePool -= 10
-    timeRemaining.textContent = timePool
-    showAnswerEl.textContent = "Incorrect! The correct Answer is " + questions[questionIndex].answer
-}
+    if(questions[questionIndex].answer === questions[questionIndex].answers[answer]) {
+        numCorrect++
+        showAnswerEl.textContent = "Correct!"
+    } else {    
+        timePool -= 10
+        timeRemaining.textContent = timePool
+        showAnswerEl.textContent = "Incorrect! The correct Answer is " + questions[questionIndex].answer
+    }
 // Cycles to next question
     questionIndex++;
 // Allows the answer to be shown beneath the quiz for 3 seconds before proceeding
-if (questionIndex < questions.length) {
+    if (questionIndex < questions.length) {
     setTimeout(function() {nextQuestion()}, 3000)
-} else {
+    } else {
 //end game
     gameOver()
-}
+    }
 }
 
 
@@ -167,9 +172,72 @@ btnBEl.addEventListener('click', checkB)
 btnCEl.addEventListener('click', checkC)
 btnDEl.addEventListener('click', checkD)
 
+
+// Hides question box and timer. Displays results
 function gameOver() {
     questionBox.classList.add('hidden')
     resultsBoxEl.classList.remove('hidden')
     timeRemaining.classList.add('hidden')
     finalScoreEl.textContent = timePool + numCorrect - numIncorrect
 }
+
+// Presents High Score Screen and hides results screen. Stores scores into local storage as an object.
+function storeScore(event) {
+    // event.preventDefault();
+
+    resultsBoxEl.classList.add('hidden')
+    // scoreScreenEl.classList.remove('hidden') put scorescreen on different HTML Page
+    scoreSumbitBtn.classList.remove('hidden')
+
+    var savedScores = localStorage.getItem('high scores');
+    var scoreArray;
+    var playerScore = {
+            initials: initialInput.value,
+            score: finalScoreEl.textContent
+        };
+
+
+
+    if (savedScores === null) {
+        scoreArray = [];
+    } else {
+        scoreArray = JSON.parse(savedScores)
+    }
+    scoreArray.push(playerScore)
+    
+    var scoreArrayString = JSON.stringify(scoreArray);
+    window.localStorage.setItem('high scores', scoreArrayString)
+
+    showScores();
+}
+
+// pulls from Local storage to load scoreScreen
+function showScores() {
+    var savedScores = localStorage.getItem('high scores');
+
+    if (savedScores === null) {
+        return;
+    }
+
+    var scoreArray = JSON.parse(savedScores)
+
+    for (i = 0; i < savedScores.length; i++) {
+        var newScore = document.createElement('p');
+        newScore.innerHTML = scoreArray[i].initials + ': ' + scoreArray[i].score;
+        highScoreList.appendChild(newScore);
+
+    }
+}
+
+
+scoreSumbitBtn.addEventListener('click', function(event){
+    storeScore(event);
+    startButton.classList.remove('hidden');
+
+});
+
+clearScoreBtn.addEventListener('click', function() {
+    window.localStorage.removeItem('high scores');
+    scoreScreenEl.classList.add('hidden');
+
+})
